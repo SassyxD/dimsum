@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none">
+  <defs>
+    <linearGradient id="alertGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f59e0b;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ef4444;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="bellGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#fbbf24;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#f59e0b;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Shield Background -->
+  <path d="M50 5 L85 20 L85 50 C85 70 70 85 50 95 C30 85 15 70 15 50 L15 20 Z" 
+        fill="url(#alertGradient)" stroke="#dc2626" stroke-width="2"/>
+  
+  <!-- Bell Icon -->
+  <g transform="translate(50, 45)">
+    <path d="M0,-20 C-12,-20 -18,-10 -18,0 L-18,8 L-22,12 L22,12 L18,8 L18,0 C18,-10 12,-20 0,-20" 
+          fill="url(#bellGradient)" stroke="#ffffff" stroke-width="1"/>
+    <ellipse cx="0" cy="18" rx="6" ry="4" fill="#fbbf24"/>
+    <circle cx="0" cy="-20" r="3" fill="#fbbf24"/>
+  </g>
+  
+  <!-- Ethereum Symbol (small) -->
+  <g transform="translate(75, 25) scale(0.4)">
+    <polygon points="0,-25 18,0 0,-5 -18,0" fill="#ffffff" opacity="0.9"/>
+    <polygon points="0,27 18,0 0,-5 -18,0" fill="#ffffff" opacity="0.7"/>
+  </g>
+  
+  <!-- Alert waves -->
+  <g stroke="#ffffff" stroke-width="2" fill="none" opacity="0.8">
+    <path d="M25,55 Q15,50 25,45"/>
+    <path d="M75,55 Q85,50 75,45"/>
+    <path d="M20,60 Q8,52 20,40"/>
+    <path d="M80,60 Q92,52 80,40"/>
+  </g>
+  
+  <!-- Lightning bolt (real-time indicator) -->
+  <g transform="translate(25, 25)">
+    <polygon points="0,-10 -6,2 -2,2 -4,12 6,-2 2,-2 4,-10" fill="#ffffff"/>
+  </g>
+</svg>
