@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none">
+  <defs>
+    <linearGradient id="shieldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="ethGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#8c8c8c;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#393939;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#141414;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Shield Background -->
+  <path d="M50 5 L85 20 L85 50 C85 70 70 85 50 95 C30 85 15 70 15 50 L15 20 Z" 
+        fill="url(#shieldGradient)" stroke="#4c51bf" stroke-width="2"/>
+  
+  <!-- Ethereum Diamond -->
+  <g transform="translate(50, 48)">
+    <!-- Top half -->
+    <polygon points="0,-25 18,0 0,-5 -18,0" fill="#8c8c8c" opacity="0.9"/>
+    <polygon points="0,-25 0,-5 -18,0" fill="#393939" opacity="0.9"/>
+    <polygon points="0,-25 0,-5 18,0" fill="#141414" opacity="0.9"/>
+    
+    <!-- Bottom half -->
+    <polygon points="0,27 18,0 0,-5 -18,0" fill="#8c8c8c" opacity="0.9"/>
+    <polygon points="0,27 0,-5 -18,0" fill="#393939" opacity="0.9"/>
+    <polygon points="0,27 0,-5 18,0" fill="#141414" opacity="0.9"/>
+  </g>
+  
+  <!-- Lock icon -->
+  <g transform="translate(50, 78)">
+    <rect x="-10" y="-6" width="20" height="14" rx="2" fill="#ffd700"/>
+    <path d="M-6,-6 L-6,-10 A6,6 0 0,1 6,-10 L6,-6" stroke="#ffd700" stroke-width="3" fill="none"/>
+  </g>
+  
+  <!-- Security check mark -->
+  <circle cx="75" cy="25" r="10" fill="#22c55e"/>
+  <path d="M70,25 L74,29 L80,21" stroke="white" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

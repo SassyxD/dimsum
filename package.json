@@ -1,0 +1,59 @@
+{
+  "name": "@ethereum-secure/n8n-nodes",
+  "version": "1.0.0",
+  "description": "AI-Powered Ethereum Platform with Advanced Cybersecurity for n8n - Hackathon Edition",
+  "keywords": [
+    "n8n",
+    "n8n-community-node-package",
+    "ethereum",
+    "blockchain",
+    "security",
+    "cybersecurity",
+    "ai",
+    "smart-contracts",
+    "viem",
+    "threat-detection",
+    "defi"
+  ],
+  "license": "MIT",
+  "author": {
+    "name": "Ethereum Secure Team",
+    "email": "security@ethereum-secure.io"
+  },
+  "n8n": {
+    "n8nNodesApiVersion": 1,
+    "credentials": [
+      "dist/credentials/EthereumRpc.credentials.js",
+      "dist/credentials/EthereumSecureAccount.credentials.js",
+      "dist/credentials/AIProvider.credentials.js",
+      "dist/credentials/ThreatIntelligence.credentials.js"
+    ],
+    "nodes": [
+      "dist/nodes/EthereumSecure/EthereumSecure.node.js",
+      "dist/nodes/EthereumSecureTrigger/EthereumSecureTrigger.node.js"
+    ]
+  },
+  "scripts": {
+    "build": "tsc && gulp build:icons",
+    "dev": "tsc --watch",
+    "test": "vitest",
+    "lint": "eslint . --ext .ts",
+    "format": "prettier --write \"**/*.ts\""
+  },
+  "dependencies": {
+    "abitype": "^1.2.3",
+    "n8n-core": "^2.2.1",
+    "n8n-workflow": "^2.2.1",
+    "viem": "^2.43.4"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.14",
+    "@typescript-eslint/eslint-plugin": "^8.51.0",
+    "@typescript-eslint/parser": "^8.51.0",
+    "eslint": "^9.39.2",
+    "gulp": "^5.0.1",
+    "prettier": "^3.7.4",
+    "typescript": "^5.9.3",
+    "vitest": "^4.0.16"
+  }
+}
