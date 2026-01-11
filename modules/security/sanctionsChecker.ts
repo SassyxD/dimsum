@@ -133,7 +133,7 @@ async function checkChainalysis(
     throw new Error(`Chainalysis API error: ${response.status}`);
   }
 
-  const data = await response.json();
+  const data = await response.json() as any;
 
   // Chainalysis returns identifications for sanctioned addresses
   if (data.identifications && data.identifications.length > 0) {
@@ -191,7 +191,7 @@ async function checkElliptic(
     throw new Error(`Elliptic API error: ${response.status}`);
   }
 
-  const data = await response.json();
+  const data = await response.json() as any;
 
   // Check for sanctions in the response
   if (data.risk_score && data.risk_score >= 10) {

@@ -17,7 +17,7 @@ import { TokenSecurityAnalysis } from "../../utils/types";
  * Analyze a token for honeypot characteristics
  */
 export async function detectHoneypot(
-  client: PublicClient,
+  client: any,
   tokenAddress: string,
   options?: {
     testAmount?: bigint;
@@ -36,7 +36,7 @@ export async function detectHoneypot(
   let sellTax: number | undefined;
 
   // Get contract bytecode
-  const bytecode = await client.getCode({ address });
+  const bytecode = await client.getBytecode({ address });
 
   if (!bytecode || bytecode === "0x") {
     return createEmptyAnalysis(tokenAddress, "Not a contract");
@@ -310,7 +310,7 @@ function createEmptyAnalysis(
  * Note: This requires a DEX router and is more accurate but more complex
  */
 export async function simulateTradeForHoneypot(
-  client: PublicClient,
+  client: any,
   tokenAddress: string,
   routerAddress: string,
   testAmount: bigint

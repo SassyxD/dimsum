@@ -10,6 +10,7 @@ import {
   INodeType,
   INodeTypeDescription,
   NodeOperationError,
+  IDataObject,
 } from "n8n-workflow";
 import {
   createPublicClient,
@@ -918,7 +919,7 @@ export class EthereumSecure implements INodeType {
 
     for (let i = 0; i < items.length; i++) {
       try {
-        let result: Record<string, unknown> = {};
+        let result: any = {};
 
         // ===========================================
         //          Security Operations
@@ -961,7 +962,7 @@ export class EthereumSecure implements INodeType {
 
           if (operation === "verifyContract") {
             const address = this.getNodeParameter("address", i) as string;
-            const code = await client.getCode({ address: address as `0x${string}` });
+            const code = await client.getBytecode({ address: address as `0x${string}` });
             const analysis = await performContractSecurityAnalysis(
               address,
               code || "0x",
@@ -1148,7 +1149,7 @@ export class EthereumSecure implements INodeType {
               i
             ) as boolean;
 
-            const code = await client.getCode({
+            const code = await client.getBytecode({
               address: address as `0x${string}`,
             });
             const isContract = code !== undefined && code !== "0x";

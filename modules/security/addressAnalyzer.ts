@@ -26,7 +26,7 @@ import {
  * Perform comprehensive security analysis on an Ethereum address
  */
 export async function analyzeAddress(
-  client: PublicClient,
+  client: any,
   address: string,
   options?: {
     etherscanApiKey?: string;
@@ -42,7 +42,7 @@ export async function analyzeAddress(
   const riskFactors: RiskFactor[] = [];
 
   // Check if address is a contract
-  const code = await client.getCode({ address: checksumAddress });
+  const code = await client.getBytecode({ address: checksumAddress });
   const isContract = code !== undefined && code !== "0x";
 
   // Get transaction count (age indicator)
@@ -138,7 +138,7 @@ async function checkContractVerification(
       `https://api.etherscan.io/api?module=contract&action=getsourcecode&address=${address}&apikey=${apiKey}`
     );
 
-    const data = await response.json();
+    const data = await response.json() as any;
 
     if (data.status === "1" && data.result?.[0]?.SourceCode) {
       return {

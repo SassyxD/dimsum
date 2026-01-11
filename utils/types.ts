@@ -47,6 +47,8 @@ export interface SanctionsCheck {
   source?: string;
   matchType?: string;
   details?: string;
+  lists?: string[];
+  reason?: string;
 }
 
 export interface ContractSecurityAnalysis {

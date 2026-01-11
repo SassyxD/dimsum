@@ -62,7 +62,7 @@ export async function verifyContractOnEtherscan(
       `${apiBaseUrl}?module=contract&action=getsourcecode&address=${address}&apikey=${apiKey}`
     );
 
-    const data = await response.json();
+    const data = await response.json() as any;
 
     if (data.status !== "1" || !data.result?.[0]) {
       return { isVerified: false };

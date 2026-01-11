@@ -221,6 +221,12 @@ export const SECURITY_THRESHOLDS = {
   BLOCK_TRANSACTION_SCORE: 80,
   WARN_TRANSACTION_SCORE: 50,
   REVIEW_TRANSACTION_SCORE: 30,
+
+  // Risk level thresholds
+  LOW_RISK: 20,
+  MEDIUM_RISK: 40,
+  HIGH_RISK: 60,
+  CRITICAL_RISK: 80,
 };
 
 // ===========================================
@@ -234,17 +240,25 @@ export enum AuditEventType {
   TRANSACTION_SUBMITTED = "transaction.submitted",
   TRANSACTION_CONFIRMED = "transaction.confirmed",
   TRANSACTION_FAILED = "transaction.failed",
+  TRANSACTION_EXECUTED = "transaction.executed",
+  TRANSACTION_SIMULATED = "transaction.simulated",
 
   // Security events
   SECURITY_CHECK_PASSED = "security.check.passed",
   SECURITY_CHECK_FAILED = "security.check.failed",
   SECURITY_ALERT_TRIGGERED = "security.alert.triggered",
   THREAT_DETECTED = "security.threat.detected",
+  SECURITY_ALERT = "security.alert",
+  SANCTIONS_CHECK = "security.sanctions.check",
 
   // Contract events
   CONTRACT_GENERATED = "contract.generated",
   CONTRACT_ANALYZED = "contract.analyzed",
   CONTRACT_DEPLOYED = "contract.deployed",
+  CONTRACT_VERIFIED = "contract.verified",
+
+  // AI events
+  AI_GENERATION = "ai.generation",
 
   // Access events
   CREDENTIAL_ACCESSED = "credential.accessed",

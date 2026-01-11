@@ -35,7 +35,7 @@ export function getChain(chainNameOrId: string | number): Chain | undefined {
   if (!chainId) return undefined;
 
   // Map to viem chains
-  const chainMap: Record<number, Chain> = {
+  const chainMap: Record<number, any> = {
     1: chains.mainnet,
     11155111: chains.sepolia,
     42161: chains.arbitrum,
@@ -60,7 +60,7 @@ export function getChain(chainNameOrId: string | number): Chain | undefined {
  */
 export function createSecurePublicClient(
   config: SecureClientConfig
-): PublicClient {
+): any {
   const { rpcUrl, customHeaders } = config;
 
   // Parse headers if provided
@@ -92,7 +92,7 @@ export function createSecurePublicClient(
 
   return viemCreatePublicClient({
     transport,
-  }) as PublicClient;
+  }) as any;
 }
 
 // ===========================================
@@ -103,7 +103,7 @@ export function createSecurePublicClient(
  * Create a wallet client with secure account derivation
  */
 export function createSecureWalletClient(
-  publicClient: PublicClient,
+  publicClient: any,
   rpcConfig: SecureClientConfig,
   walletConfig: WalletConfig
 ): WalletClient {
@@ -236,7 +236,7 @@ export function getWalletAddress(walletClient: WalletClient): string {
  * Check if RPC endpoint is healthy
  */
 export async function checkRpcHealth(
-  client: PublicClient
+  client: any
 ): Promise<{ healthy: boolean; blockNumber?: bigint; latency?: number }> {
   const startTime = Date.now();
 

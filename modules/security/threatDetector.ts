@@ -28,7 +28,7 @@ import {
  * Analyze a transaction for potential threats before execution
  */
 export async function analyzeTransactionThreats(
-  client: PublicClient,
+  client: any,
   transaction: SecureTransaction,
   options?: {
     checkMEV?: boolean;
@@ -199,15 +199,15 @@ interface GasBaseline {
 }
 
 async function checkGasAnomaly(
-  client: PublicClient,
+  client: any,
   transaction: SecureTransaction,
   baseline?: GasBaseline
 ): Promise<PreFlightCheck> {
   try {
     const currentGasPrice = await client.getGasPrice();
 
-    let targetGas = transaction.maxFeePerGas || currentGasPrice;
-    let referenceGas = baseline?.averageGasPrice || currentGasPrice;
+    let targetGas = BigInt(transaction.maxFeePerGas || currentGasPrice);
+    let referenceGas = BigInt(baseline?.averageGasPrice || currentGasPrice);
 
     if (referenceGas === 0n) {
       return {
@@ -221,7 +221,7 @@ async function checkGasAnomaly(
     const percentageAbove =
       Number(((targetGas - referenceGas) * 100n) / referenceGas);
 
-    if (percentageAbove > SECURITY_THRESHOLDS.GAS_PRICE_ANOMALY_THRESHOLD) {
+    if (percentageAbove > Number(SECURITY_THRESHOLDS.GAS_PRICE_ANOMALY_THRESHOLD)) {
       return {
         name: "gas_check",
         passed: false,
@@ -251,7 +251,7 @@ async function checkGasAnomaly(
  * Check contract interaction for known risky patterns
  */
 async function checkContractInteraction(
-  client: PublicClient,
+  client: any,
   transaction: SecureTransaction
 ): Promise<PreFlightCheck> {
   const data = transaction.data as string;
@@ -351,10 +351,10 @@ async function checkMEVVulnerability(
  * Check recipient address
  */
 async function checkRecipient(
-  client: PublicClient,
+  client: any,
   to: string
 ): Promise<PreFlightCheck> {
-  const code = await client.getCode({ address: to as `0x${string}` });
+  const code = await client.getBytecode({ address: to as `0x${string}` });
   const isContract = code !== undefined && code !== "0x";
 
   if (isContract) {

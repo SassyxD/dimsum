@@ -141,7 +141,7 @@ export function validateTravelRuleData(data: TravelRuleData): {
  * Perform comprehensive compliance check on an address
  */
 export async function checkAddressCompliance(
-  client: PublicClient,
+  client: any,
   address: string,
   options: {
     etherscanApiKey?: string;
@@ -174,12 +174,12 @@ export async function checkAddressCompliance(
     if (riskLevel !== RiskLevel.CRITICAL) {
       riskLevel = RiskLevel.HIGH;
     }
-    flags.push(...addressAnalysis.riskScore.factors);
+    flags.push(...addressAnalysis.riskScore.factors.map(f => f.type));
   } else if (addressAnalysis.riskScore.score >= SECURITY_THRESHOLDS.MEDIUM_RISK) {
     if (riskLevel === RiskLevel.LOW) {
       riskLevel = RiskLevel.MEDIUM;
     }
-    flags.push(...addressAnalysis.riskScore.factors);
+    flags.push(...addressAnalysis.riskScore.factors.map(f => f.type));
   }
 
   // Check for new address (potential concern)

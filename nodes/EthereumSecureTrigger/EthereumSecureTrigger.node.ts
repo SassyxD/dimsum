@@ -469,13 +469,13 @@ export class EthereumSecureTrigger implements INodeType {
       if (isWebSocketUrl && useWebSocket) {
         unwatch = client.watchBlocks({
           includeTransactions,
-          onBlock: async (block: Block) => {
+          onBlock: async (block: any) => {
             const blockData = formatBlockData(block, includeTransactions);
 
             if (includeBlockSecurity && includeTransactions && block.transactions) {
               // Analyze transactions for suspicious activity
               const suspiciousTransactions: unknown[] = [];
-              const txs = block.transactions as Transaction[];
+              const txs = block.transactions as any[];
 
               for (const tx of txs.slice(0, 10)) {
                 // Limit analysis
@@ -508,7 +508,7 @@ export class EthereumSecureTrigger implements INodeType {
               }
             }
 
-            this.emit([this.helpers.returnJsonArray([blockData])]);
+            this.emit([this.helpers.returnJsonArray([blockData] as any)]);
           },
         });
       } else {
@@ -526,7 +526,7 @@ export class EthereumSecureTrigger implements INodeType {
             if (block.number && block.number > lastBlockNumber) {
               lastBlockNumber = block.number;
               const blockData = formatBlockData(block, includeTransactions);
-              this.emit([this.helpers.returnJsonArray([blockData])]);
+              this.emit([this.helpers.returnJsonArray([blockData] as any)]);
             }
           } catch (error) {
             console.error("Block polling error:", error);
@@ -550,13 +550,13 @@ export class EthereumSecureTrigger implements INodeType {
         "analyzeParticipants"
       ) as boolean;
 
-      const eventAbi = parseAbiItem(`event ${eventSignature}`);
+      const eventAbi = parseAbiItem(`event ${eventSignature}`) as any;
 
       if (isWebSocketUrl && useWebSocket) {
         unwatch = client.watchEvent({
           address: contractAddress as `0x${string}`,
           event: eventAbi,
-          onLogs: async (logs: Log[]) => {
+          onLogs: async (logs: any[]) => {
             const processedLogs: Record<string, unknown>[] = [];
 
             for (const log of logs) {
@@ -609,7 +609,7 @@ export class EthereumSecureTrigger implements INodeType {
             }
 
             if (processedLogs.length > 0) {
-              this.emit([this.helpers.returnJsonArray(processedLogs)]);
+              this.emit([this.helpers.returnJsonArray(processedLogs as any)]);
             }
           },
         });
@@ -645,7 +645,7 @@ export class EthereumSecureTrigger implements INodeType {
                   data: log.data,
                 }));
 
-                this.emit([this.helpers.returnJsonArray(processedLogs)]);
+                this.emit([this.helpers.returnJsonArray(processedLogs as any)]);
               }
             }
           } catch (error) {
@@ -673,11 +673,11 @@ export class EthereumSecureTrigger implements INodeType {
       if (isWebSocketUrl && useWebSocket) {
         unwatch = client.watchBlocks({
           includeTransactions: true,
-          onBlock: async (block: Block) => {
+          onBlock: async (block: any) => {
             if (!block.transactions) return;
 
             const whaleTransactions: Record<string, unknown>[] = [];
-            const txs = block.transactions as Transaction[];
+            const txs = block.transactions as any[];
 
             for (const tx of txs) {
               if (tx.value >= minValueWei) {
@@ -713,7 +713,7 @@ export class EthereumSecureTrigger implements INodeType {
             }
 
             if (whaleTransactions.length > 0) {
-              this.emit([this.helpers.returnJsonArray(whaleTransactions)]);
+              this.emit([this.helpers.returnJsonArray(whaleTransactions as any)]);
             }
           },
         });
@@ -731,7 +731,7 @@ export class EthereumSecureTrigger implements INodeType {
 
             if (block.number && block.number > lastBlock) {
               lastBlock = block.number;
-              const txs = block.transactions as Transaction[];
+              const txs = block.transactions as any[];
               const whaleTransactions: Record<string, unknown>[] = [];
 
               for (const tx of txs) {
@@ -749,7 +749,7 @@ export class EthereumSecureTrigger implements INodeType {
               }
 
               if (whaleTransactions.length > 0) {
-                this.emit([this.helpers.returnJsonArray(whaleTransactions)]);
+                this.emit([this.helpers.returnJsonArray(whaleTransactions as any)]);
               }
             }
           } catch (error) {
@@ -866,7 +866,7 @@ export class EthereumSecureTrigger implements INodeType {
             });
 
             if (filteredAlerts.length > 0) {
-              this.emit([this.helpers.returnJsonArray(filteredAlerts)]);
+              this.emit([this.helpers.returnJsonArray(filteredAlerts as any)]);
             }
           }
         } catch (error) {
@@ -990,7 +990,7 @@ export class EthereumSecureTrigger implements INodeType {
             }
 
             if (threats.length > 0) {
-              this.emit([this.helpers.returnJsonArray(threats)]);
+              this.emit([this.helpers.returnJsonArray(threats as any)]);
             }
           }
         } catch (error) {
@@ -1095,7 +1095,7 @@ export class EthereumSecureTrigger implements INodeType {
             }
 
             if (activities.length > 0) {
-              this.emit([this.helpers.returnJsonArray(activities)]);
+              this.emit([this.helpers.returnJsonArray(activities as any)]);
             }
           }
         } catch (error) {
@@ -1127,7 +1127,7 @@ export class EthereumSecureTrigger implements INodeType {
 // ===========================================
 
 function formatBlockData(
-  block: Block,
+  block: any,
   includeTransactions: boolean
 ): Record<string, unknown> {
   const data: Record<string, unknown> = {
@@ -1146,7 +1146,7 @@ function formatBlockData(
   };
 
   if (includeTransactions && block.transactions) {
-    data.transactions = (block.transactions as Transaction[]).map((tx) => ({
+    data.transactions = (block.transactions as any[]).map((tx) => ({
       hash: tx.hash,
       from: tx.from,
       to: tx.to,
